@@ -11,6 +11,10 @@ export default async (req, res) => {
   const design = await sdk.fetchDesignById(designId);
   const artboards = await design.getArtboards();
 
+  if (!fs.existsSync("./public/images/")) {
+    fs.mkdirSync("./public/images/");
+  }
+
   const folderPath = `./public/images/${design.id}`;
   if (!fs.existsSync(folderPath)) {
     fs.mkdirSync(folderPath);
