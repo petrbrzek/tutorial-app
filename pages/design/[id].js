@@ -158,19 +158,14 @@ function ArtboardPreview({
 export async function getServerSideProps({ query }) {
   const { id } = query;
 
-  const pagesRes = await fetch(
-    `http://localhost:3000/api/pages?designId=${id}`
-  );
+  let [pagesRes, artboardsRes, previewsRes] = await Promise.all([
+    fetch(`http://localhost:3000/api/pages?designId=${id}`),
+    fetch(`http://localhost:3000/api/artboards?designId=${id}`),
+    fetch(`http://localhost:3000/api/previews?designId=${id}`),
+  ]);
+
   const pages = await pagesRes.json();
-
-  const artboardsRes = await fetch(
-    `http://localhost:3000/api/artboards?designId=${id}`
-  );
   const artboards = await artboardsRes.json();
-
-  const previewsRes = await fetch(
-    `http://localhost:3000/api/previews?designId=${id}`
-  );
   const previews = await previewsRes.json();
 
   return {
