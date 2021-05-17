@@ -5,7 +5,7 @@ export default async (req, res) => {
   const { designId } = req.query;
 
   sdk.setGlobalFontDirectory("./fonts");
-  sdk.setGlobalFallbackFonts("Inter-Regular");
+  sdk.setGlobalFallbackFonts(["Inter-Regular"]);
 
   const design = await sdk.fetchDesignById(designId);
   const artboards = await design.getArtboards();
